@@ -8,13 +8,15 @@
     base on user requests
 */
 import express from 'express';
-import { getTest } from '../controllers/userController.js';
+import { getTest, getAllUsers } from '../controllers/userController.js';
 
 // creating a new router instance
 const router = express.Router();
 
 // defining routes
 router.get('/test', getTest);
+
+router.get('/', getAllUsers)
 
 
 export default router; // default way to export 

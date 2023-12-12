@@ -12,7 +12,7 @@ app.use(cors());
 // app.use(express.json()) also tells Express to automatically parse JSON request bodies for you
 app.use(express.json())  
 
-/** below here you can list all the routes you want to use so you can do requests */
+/** below here you can list all the routes you want to use so you can do requests, or mounting the routers */
 app.use(apiPaths.API_USER_V1, userRouter); // starting path: http://localhost:8080/api/v1/users
 
 app.use((err, req, res, next) => {
