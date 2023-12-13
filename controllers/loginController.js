@@ -1,8 +1,8 @@
 /** This file deals with the logics of logging in */
 import pool from "../database.js";
 import { DatabaseEnums } from "../databaseEnums/databaseEnums.js";
-import jwt from "jsonwebtoken";
-import crypto from "crypto"
+import jwtUtils from "../libs/jwtUtils.js";
+
 
 const login = async (req, res) => {
     try{
@@ -17,11 +17,8 @@ const login = async (req, res) => {
 
             console.log("The password is: ", result[0].password);
             
-            // generating secret key
-            const secretKey = crypto.randomBytes(32).toString('hex');
-            
-            // creating jwt
-            const token = jwt.sign({userEmail: email}, secretKey, {expiresIn: '30s'});
+            //creating jwt
+            const token = jwtUtils.generateTokenByEmail(email);
 
             res.status(200).json({ message: 'Logged in successfully', token: token});
 
