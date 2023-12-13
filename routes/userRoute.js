@@ -14,7 +14,7 @@ const router = express.Router();
 
 // defining GET ROUTES
 router.get(commonPaths.TEST, userController.getTest);
-router.get(commonPaths.GET_ALL, userController.getAllUsers)
+router.get(commonPaths.GET_ALL, userController.getAllUsers);
 
 // defining POST ROUTES
 router.post('/new', userController.addNewUser);

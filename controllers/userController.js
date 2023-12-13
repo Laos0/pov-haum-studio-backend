@@ -24,7 +24,7 @@ const getAllUsers = async (req, res) => {
 
 const addNewUser = async (req, res) => {
     try {
-        // Extract user data from the request body
+        // Extract user data from the request body aka object destructuring 
         const { email, password } = req.body;
         console.log(req.body);
 
