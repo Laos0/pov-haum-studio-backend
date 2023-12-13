@@ -2,6 +2,7 @@
 
 import queries from "../queries/userQueries.js";
 import pool from "../database.js"
+import { v4 as uuidv4 } from 'uuid';
 
 
 const getTest = async (req, res) => {
@@ -29,8 +30,12 @@ const addNewUser = async (req, res) => {
         console.log(req.body);
 
         // MySQL query to insert a new user into the database
-        const sql = `INSERT INTO user (email, password) VALUES (?, ?)`;
-        const values = [email, password];
+        const sql = `INSERT INTO user (user_id, email, password) VALUES (?, ?, ?)`;
+
+        // Generate a UUID
+        const uuid = uuidv4();
+
+        const values = [uuid, email, password];
 
         const result = await pool.query(queries.postUserQueries.ADD_NEW_USER, values);// the magic of sql <-- this is where the insert happens
 

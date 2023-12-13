@@ -6,7 +6,7 @@ const getUserQueries = {
 }
 
 const postUserQueries = {
-    ADD_NEW_USER: 'INSERT INTO user (email, password) VALUES (?, ?)'
+    ADD_NEW_USER: 'INSERT INTO user (useR_id, email, password) VALUES (?, ?, ?)'
 }
 
 export default { getUserQueries, postUserQueries };
