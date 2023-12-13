@@ -1,6 +1,6 @@
 /** This is a where all the requests are created for users */
 
-import queries from "../libs/queries.js";
+import queries from "../queries/userQueries.js";
 import pool from "../database.js"
 
 
