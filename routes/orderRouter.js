@@ -7,9 +7,9 @@ import { commonPaths } from '../libs/routePaths.js'
 const router = express.Router();
 
 //defining get route
-router.get('/', orderController.getAllOrders);
+router.get('/', orderController.getAllOrders); // retrieve all the orders in the database
 
 // defining post route
-router.post('/new', orderController.order);
+router.post('/new', orderController.order); // placing an order
 
 export default router;

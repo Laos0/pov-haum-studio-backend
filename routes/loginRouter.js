@@ -7,6 +7,6 @@ import { commonPaths, userPaths } from '../libs/routePaths.js'
 const router = express.Router();
 
 // defining post route
-router.post('/', loginController.login);
+router.post('/', loginController.login); // logging in 
 
 export default router;

@@ -17,7 +17,7 @@ router.get(commonPaths.TEST, userController.getTest);
 router.get(commonPaths.GET_ALL, userController.getAllUsers);
 
 // defining POST ROUTES
-router.post('/new', userController.addNewUser);
+router.post('/new', userController.addNewUser); // creating a new user
 
 
 
