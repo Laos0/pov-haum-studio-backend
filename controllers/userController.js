@@ -32,7 +32,7 @@ const addNewUser = async (req, res) => {
         // MySQL query to insert a new user into the database
         const sql = `INSERT INTO user (user_id, email, password) VALUES (?, ?, ?)`;
 
-        // Generate a UUID
+        // Generate a UUID for user_id 
         const uuid = uuidv4();
 
         const values = [uuid, email, password];

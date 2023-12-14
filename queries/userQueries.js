@@ -1,12 +1,12 @@
 /** Writing queries so it is easier to fetch when writing sql commands */
 
-const getUserQueries = {
+const userGetQueries = {
     USERS: 'SELECT * FROM user',
     PASSWORD: 'SELECT password FROM user WHERE email='
 }
 
-const postUserQueries = {
-    ADD_NEW_USER: 'INSERT INTO user (useR_id, email, password) VALUES (?, ?, ?)'
+const userPostQueries = {
+    ADD_NEW_USER: 'INSERT INTO user (user_id, email, password) VALUES (?, ?, ?)'
 }
 
-export default { getUserQueries, postUserQueries };
+export default { getUserQueries: userGetQueries, postUserQueries: userPostQueries };
