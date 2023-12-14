@@ -18,9 +18,9 @@ const getAllUsers = async (req, res) => {
     try {
         const users = await pool.query('SELECT * FROM user');
         res.status(200).json(users[0]); // Assuming users[0] contains the fetched user data
-      } catch(error) {
+    }catch(error) {
         res.status(500).json({ message: 'Error retrieving users', error: error.message });
-      }
+    }
 };
 
 const addNewUser = async (req, res) => {

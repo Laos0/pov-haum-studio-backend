@@ -6,7 +6,10 @@ import { commonPaths } from '../libs/routePaths.js'
 // creating a new router instance
 const router = express.Router();
 
+//defining get route
+router.get('/', orderController.getAllOrders);
+
 // defining post route
-router.post('/', orderController.order);
+router.post('/new', orderController.order);
 
 export default router;
