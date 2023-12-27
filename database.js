@@ -5,6 +5,14 @@ import mysql from 'mysql2';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+/** ONLY DISABLE IF CLIENT DON'T NEED DATABASE */
+const skipFile = false;
+if(skipFile){
+    console.trace('ENABLE DATABASE IF NEEDED:');
+    
+    process.exit();
+}
+
 // this is how you connect to mysql database
 // to change the values, visit the .env file
 const pool = mysql.createPool({
