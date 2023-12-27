@@ -5,8 +5,8 @@ import mysql from 'mysql2';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-/** ONLY DISABLE IF CLIENT DON'T NEED DATABASE */
-const skipFile = false;
+/** ONLY DISABLE/ENABLE IF CLIENT HAVE OR DONT HAVE DATABASE */
+const skipFile = true;
 if(skipFile){
     console.trace('ENABLE DATABASE IF NEEDED:');
     
