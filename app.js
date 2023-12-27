@@ -6,7 +6,11 @@ import { apiPaths } from './apiVersion/apiPaths.js';
 import cors from 'cors';
 
 const app = express();
-const port = process.env.PORT || 8080 || 3306;
+
+// Set the host and port for the server to listen on
+const host = '0.0.0.0'; // This binds the server to all network interfaces
+
+const port = process.env.PORT || 8080;
 app.use(cors());
 
 // a middleware: this will allow us to send json from frontend to here
@@ -22,6 +26,16 @@ app.use(apiPaths.API_ORDER_V1, orderRouter); // starting path: http://localhost:
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke');
-}),
+});
 
-app.listen(port);
+// Set the host and port for the server to listen on
+/**  TODO: We can declare the host as HOST=0.0.0.0 in the .env file
+ * const host = process.env.HOST || '0.0.0.0'; // Use the HOST environment variable or default to '0.0.0.0'
+ * const port = process.env.PORT || 8080;
+ */
+app.set('port', port);
+app.set('host', host);
+
+app.listen(port, host, () => {
+    console.log(`Server is running on ${host}:${port}`);
+});
