@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# User-specific VS Code settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Workspace specific project settings
+.code-workspace
+
+# Optional - Logs
+logs
+*.log
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+
+# OS-generated files
+.DS_Store
+Thumbs.db
