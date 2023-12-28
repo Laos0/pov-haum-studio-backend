@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 /** ONLY DISABLE/ENABLE IF CLIENT HAVE OR DONT HAVE DATABASE */
-const skipFile = false;
+const skipFile = true;
 if(skipFile){
     console.trace('ENABLE DATABASE IF NEEDED:');
     

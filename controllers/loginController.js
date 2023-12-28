@@ -1,4 +1,5 @@
 /** This file deals with the logics of logging in */
+/*
 import pool from "../database.js";
 import { DatabaseEnums } from "../databaseEnums/databaseEnums.js";
 import jwtUtils from "../libs/jwtUtils.js";
@@ -35,3 +36,4 @@ const login = async (req, res) => {
 };
 
 export default { login };
+*/

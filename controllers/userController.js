@@ -1,5 +1,6 @@
 /** This is a where all the requests are created for users */
 
+/*
 import queries from "../queries/userQueries.js";
 import pool from "../database.js"
 import { v4 as uuidv4 } from 'uuid';
@@ -47,3 +48,4 @@ const addNewUser = async (req, res) => {
 };
 export default { getTest, getAllUsers, addNewUser}; // this is how you export with ESM not commonjs
 
+*/
