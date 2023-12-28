@@ -1,6 +1,5 @@
 /** This file deals with the logics of logging in */
-/*
-import pool from "../database.js";
+//import pool from "../database.js";
 import { DatabaseEnums } from "../databaseEnums/databaseEnums.js";
 import jwtUtils from "../libs/jwtUtils.js";
 
@@ -12,7 +11,7 @@ const login = async (req, res) => {
 
         // sql 
         const sql = `SELECT ${DatabaseEnums.USER.PASSWORD} FROM ${DatabaseEnums.TABLE_NAMES.USER} where ${DatabaseEnums.USER.EMAIL}="${email}"`;
-        const [result] = await pool.query(sql);
+        //const [result] = await pool.query(sql);
 
         if(password === result[0].password){
 
@@ -36,4 +35,3 @@ const login = async (req, res) => {
 };
 
 export default { login };
-*/
