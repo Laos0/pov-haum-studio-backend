@@ -22,7 +22,7 @@ const order = async (req, res) => {
         // send invoice to user's email, parse the req.body.order_json turning it back into an object
         nodeMailerUtils.sendInvoiceToEmail('gachanopulls@gmail.com', 'seyn trml xvzf vjvn', 'isonylao@gmail.com', JSON.parse(req.body.order_json));
 
-        res.status(200).json({ message: 'Order placed successfully!' });
+        res.status(200).json({ success: true });
     }catch(error){
         console.error('Error placing an order:', error);
         res.status(500).json({ message: 'Error placing an order', error: error.message });
