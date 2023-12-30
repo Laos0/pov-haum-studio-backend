@@ -12,10 +12,11 @@ const host = '0.0.0.0'; // This binds the server to all network interfaces
 
 const port = process.env.PORT || 8080;
 app.use(cors({
-    origin: 'https://pov-haum-studio-ng.onrender.com', // Your Angular app domain
+    origin: ['https://pov-haum-studio-ng.onrender.com', 'http://localhost:4200'],
     methods: 'GET,PUT,POST,DELETE',
-    credentials: false, // If you're using cookies or authentication headers
+    credentials: false,
 }));
+
 
 // a middleware: this will allow us to send json from frontend to here
 // without express.json(), our req.body will be {} 
