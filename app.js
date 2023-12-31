@@ -14,8 +14,22 @@ const port = process.env.PORT || 8080;
 app.use(cors({
     origin: ['https://pov-haum-studio-ng.onrender.com', 'http://localhost:4200'],
     methods: 'GET,PUT,POST,DELETE',
-    credentials: false,
+    credentials: true,
 }));
+
+const corsOptions = {
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: 'GET,PUT,POST,DELETE',
+    credentials: true, // Allow credentials (if needed)
+  };
+
+app.options('*', cors(corsOptions));
 
 
 // a middleware: this will allow us to send json from frontend to here
