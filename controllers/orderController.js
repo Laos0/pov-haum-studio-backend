@@ -39,5 +39,13 @@ const getAllOrders = async (req, res) => {
     }
 }
 
+const testGetOrder = async (req, res) => {
+    try{
+        res.status(200).json({ message: 'GET TEST WORKED!'});
+    }catch(error){
+        res.status(500).json({ message: 'Failed to retrieve users', error: error.message });
+    }
+}
 
-export default {order, getAllOrders};
+
+export default {order, getAllOrders, testGetOrder};
