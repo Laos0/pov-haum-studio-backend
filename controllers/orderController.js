@@ -16,11 +16,13 @@ const order = async (req, res) => {
 
         const values = [uuid, order_json, email];
 
+        //console.log(email);
+
         // inserting data into the order_detail table in database
         //const result = await pool.query(queries.orderPostQueries.ADD_NEW_ORDER, values);
 
         // send invoice to user's email, parse the req.body.order_json turning it back into an object
-        nodeMailerUtils.sendInvoiceToEmail('gachanopulls@gmail.com', 'seyn trml xvzf vjvn', 'isonylao@gmail.com', JSON.parse(req.body.order_json));
+        nodeMailerUtils.sendInvoiceToEmail('gachanopulls@gmail.com', 'seyn trml xvzf vjvn', 'isonylao@gmail.com', order_json);
 
         res.status(200).json({ success: true });
     }catch(error){
