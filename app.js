@@ -3,6 +3,7 @@ import  userRouter  from './routes/userRouter.js';
 import loginRouter from './routes/loginRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import couponRouter from './routes/couponRouter.js';
+import pingRouter from './routes/pingRouter.js';
 import { apiPaths } from './apiVersion/apiPaths.js';
 import cors from 'cors';
 
@@ -32,6 +33,7 @@ app.use(apiPaths.API_USER_V1, userRouter); // starting path: http://localhost:80
 app.use(apiPaths.API_LOGIN_V1, loginRouter); // starting path: http://localhost:8080/api/v1/login
 app.use(apiPaths.API_ORDER_V1, orderRouter); // starting path: http://localhost:8080/api/v1/order
 app.use(apiPaths.API_COUPON_V1, couponRouter); // starting path: http://localhost:8080/api/v1/coupon
+app.use(apiPaths.API_PING_V1, pingRouter); // starting path: http://localhost:8080/api/v1/ping
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
