@@ -15,7 +15,7 @@ function generateRandomString(length) {
     const currentDate = new Date();
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentDate.getDate().toString().padStart(2, '0');
-    const year = currentDate.getFullYear();
+    const year = currentDate.getFullYear() % 100; // Getting the last two digits of the year
     const formattedDate = `${month}${day}${year}`;
     return `${randomString}${formattedDate}`;
   }
