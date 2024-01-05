@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import  userRouter  from './routes/userRouter.js';
 import loginRouter from './routes/loginRouter.js';
 import orderRouter from './routes/orderRouter.js';
+import couponRouter from './routes/couponRouter.js';
 import { apiPaths } from './apiVersion/apiPaths.js';
 import cors from 'cors';
 
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use(apiPaths.API_USER_V1, userRouter); // starting path: http://localhost:8080/api/v1/users
 app.use(apiPaths.API_LOGIN_V1, loginRouter); // starting path: http://localhost:8080/api/v1/login
 app.use(apiPaths.API_ORDER_V1, orderRouter); // starting path: http://localhost:8080/api/v1/order
+app.use(apiPaths.API_COUPON_V1, couponRouter); // starting path: http://localhost:8080/api/v1/coupon
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
