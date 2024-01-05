@@ -3,6 +3,7 @@ import { DatabaseEnums } from "../databaseEnums/databaseEnums.js";
 import { v4 as uuidv4 } from 'uuid';
 import queries from '../queries/orderQueries.js';
 import nodeMailerUtils from "../libs/nodeMailerUtils.js";
+import idManager from "../utils/idGenerator.js"
 
 const order = async (req, res) => {
 
@@ -12,9 +13,11 @@ const order = async (req, res) => {
         //console.log(JSON.parse(req.body.order_json).businessName);
 
         // generating uuid for the order_detail
-        const uuid = uuidv4();
+        // const uuid = uuidv4();
+        const id = idManager.generateUniqueID();
 
-        const values = [uuid, order_json, email];
+
+        const values = [id, order_json, email];
 
         //console.log(email);
 
@@ -22,9 +25,9 @@ const order = async (req, res) => {
         //const result = await pool.query(queries.orderPostQueries.ADD_NEW_ORDER, values);
 
         // send invoice to user's email, parse the req.body.order_json turning it back into an object
-        nodeMailerUtils.sendInvoiceToEmail('gachanopulls@gmail.com', 'seyn trml xvzf vjvn', 'isonylao@gmail.com', order_json);
+        //nodeMailerUtils.sendInvoiceToEmail('gachanopulls@gmail.com', 'seyn trml xvzf vjvn', 'isonylao@gmail.com', order_json);
 
-        res.status(200).json({ success: true });
+        res.status(200).json({ success: true, order_id: id });
     }catch(error){
         console.error('Error placing an order:', error);
         res.status(500).json({ message: 'Error placing an order', error: error.message });
