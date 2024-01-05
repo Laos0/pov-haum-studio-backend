@@ -107,6 +107,8 @@ const validateCoupon = (code) => {
     if(!!foundCoupon){ // if the code was found
 
         return foundCoupon;
+    }else{
+        return null;
     }
 }
 
