@@ -44,6 +44,31 @@ const getAllOrders = async (req, res) => {
     }
 }
 
+const sendEmailInvoice = async (req, res) => {
+    try {
+
+        console.log(req.file.buffer); // Log the entire request object
+
+        const pdfFile = req.file; // Access the uploaded file data using req.file
+        //console.log(pdfFile);
+
+
+
+        // extract the req.body by object destructuring, finding order_json and email from req.body and linking it
+        // const {order_json, email, pdfFile} = req.body;
+
+        // const values = [order_json, email, pdfFile];
+
+        // console.log(pdfFile);
+
+        nodeMailerUtils.sendInvoiceToEmail('gachanopulls@gmail.com', 'seyn trml xvzf vjvn', 'isonylao@gmail.com', pdfFile);
+
+        res.status(200).json({success: true}); // Assuming users[0] contains the fetched order data
+    }catch(error) {
+        res.status(500).json({ message: 'Error sending invoice to users', error: error.message });
+    }
+}
+
 const testGetOrder = async (req, res) => {
     try{
         res.status(200).json({ message: 'GET TEST WORKED!'});
@@ -53,4 +78,4 @@ const testGetOrder = async (req, res) => {
 }
 
 
-export default {order, getAllOrders, testGetOrder};
+export default {order, getAllOrders, testGetOrder, sendEmailInvoice};
