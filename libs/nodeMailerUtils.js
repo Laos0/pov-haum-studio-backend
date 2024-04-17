@@ -115,8 +115,8 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
       `;
 
 
-
-    // email options
+    /*
+    // email options pdf, images etc...
     const mailOptions = {
         from: email,
         to: recipientEmail,
@@ -130,8 +130,9 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
             }
         ]
     }
-    /*
+    */
 
+    
     // email options for html
     const mailOptions = {
         from: email,
@@ -139,8 +140,8 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
         subject: 'Your Invoice: ' + orderDetails.orderId,
         html: invoiceContent
     }
-*/
-
+    
+    // server lets us know when an email was sent or not
     transporter.sendMail(mailOptions)
         .then(info => {
             console.log('Email sent:', info.response);
@@ -148,6 +149,8 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
         .catch((error) => {
             console.error('Error sending email:', error);
         });
+
+    
 }
 
 
