@@ -139,7 +139,7 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
         from: email,
         to: recipientEmail,
         subject: 'Your Invoice: ' + orderDetails.orderId,
-        content: invoiceContent
+        html: invoiceContent
     }
 
 
