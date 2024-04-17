@@ -138,7 +138,7 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
     const mailOptions = {
         from: email,
         to: recipientEmail,
-        subject: 'Your Invoice',
+        subject: 'Your Invoice: ' + orderDetails.orderId,
         attachments: [
             {
                 filename: 'invoice.pdf',
