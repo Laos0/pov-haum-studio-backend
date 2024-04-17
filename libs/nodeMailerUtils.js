@@ -139,14 +139,7 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
         from: email,
         to: recipientEmail,
         subject: 'Your Invoice: ' + orderDetails.orderId,
-        attachments: [
-            {
-                filename: 'invoice.pdf',
-                content: invoiceContent,
-                encoding: 'base64',
-                contentType: 'application/pdf',
-            }
-        ]
+        content: invoiceContent
     }
 
 
