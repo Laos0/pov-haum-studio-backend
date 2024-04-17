@@ -77,8 +77,6 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
          <div>
              <div>Type: ${orderDetails.topType}</div>
              <div>Size: ${orderDetails.topSize}</div>
-             <div>Color: ${orderDetails.topColorName}</div>
-             <div>Print Area: ${orderDetails.topPrintArea}</div>
              <div>Qty: ${orderDetails.topQty}</div>
              <div>Due Date: ${orderDetails.deliveryDateRequest}</div>
          </div>
@@ -93,7 +91,7 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
              <div>Print Area Cost: <span class="price">$${orderDetails.printAreaCost}</span></div>
              <div>Subtotal: <span class="price">$${orderDetails.subtotal}</span></div>
              <div>Tax: <span class="price">$${orderDetails.tax}</span></div>
-             <div>Total: <span class="price">$${orderDetails.totalCost}</span></div>
+             <div>Total: <span class="price">$${orderDetails.icost.total}</span></div>
          </div>
          </div>
  
