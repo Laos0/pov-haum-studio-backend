@@ -115,7 +115,7 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
       `;
 
 
-    /* THIS IS FOR PDF INVOICE SENDING
+
     // email options
     const mailOptions = {
         from: email,
@@ -130,16 +130,16 @@ const sendInvoiceToEmail = (email, appPassword, recipientEmail, orderDetails) =>
             }
         ]
     }
-    */
+    /*
 
-    // email options
+    // email options for html
     const mailOptions = {
         from: email,
         to: recipientEmail,
         subject: 'Your Invoice: ' + orderDetails.orderId,
         html: invoiceContent
     }
-
+*/
 
     transporter.sendMail(mailOptions)
         .then(info => {
