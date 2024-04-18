@@ -1,16 +1,19 @@
-import pdf from 'html-pdf'; // Importing the 'html-pdf' module for HTML to PDF conversion
+import puppeteer from 'puppeteer'; // Importing the 'puppeteer' module for PDF generation
 
-// Function to convert HTML to PDF using html-pdf
-const convertHtmlToPdf = async (htmlContent) => { // Declaring an asynchronous function to convert HTML to PDF
-    return new Promise((resolve, reject) => { // Creating a promise for asynchronous PDF generation
-        pdf.create(htmlContent).toBuffer((err, buffer) => { // Using html-pdf to create PDF from HTML content and convert it to a buffer
-            if (err) { // If an error occurs during PDF generation
-                reject(err); // Rejecting the promise with the error
-            } else { // If PDF generation is successful
-                resolve(buffer); // Resolving the promise with the PDF buffer
-            }
-        });
-    });
+// Function to convert HTML to PDF using Puppeteer
+const convertHtmlToPdf = async (htmlContent) => {
+    const browser = await puppeteer.launch(); // Launching a headless Chromium browser instance
+    const page = await browser.newPage(); // Creating a new page in the browser
+
+    // Setting content of the page to the provided HTML content
+    await page.setContent(htmlContent);
+
+    // Generating PDF from the page content
+    const pdfBuffer = await page.pdf({ format: 'A4' }); // Optionally, you can specify the PDF format here
+
+    await browser.close(); // Closing the browser instance
+
+    return pdfBuffer; // Returning the PDF buffer
 };
 
 export default { convertHtmlToPdf }; // Exporting the convertHtmlToPdf function as default
