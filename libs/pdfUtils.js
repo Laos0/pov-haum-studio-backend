@@ -1,19 +1,25 @@
-import puppeteer from 'puppeteer'; // Importing the 'puppeteer' module for PDF generation
+//TODO: Find a right way to convert html to pdf and call it in the nodeMailer
+// generatePDF.js
+// generatePDF.js
+import puppeteer from 'puppeteer';
 
-// Function to convert HTML to PDF using Puppeteer
-const convertHtmlToPdf = async (htmlContent) => {
-    const browser = await puppeteer.launch(); // Launching a headless Chromium browser instance
-    const page = await browser.newPage(); // Creating a new page in the browser
+async function generatePDF(htmlContent, puppeteerOptions = {}) {
+    // Launch Puppeteer browser with provided options
+    const browser = await puppeteer.launch(puppeteerOptions);
 
-    // Setting content of the page to the provided HTML content
+    // Create a new page
+    const page = await browser.newPage();
+
+    // Set HTML content on the page
     await page.setContent(htmlContent);
 
-    // Generating PDF from the page content
-    const pdfBuffer = await page.pdf({ format: 'A4' }); // Optionally, you can specify the PDF format here
+    // Generate PDF
+    const pdfBuffer = await page.pdf({ format: 'A4' }); // Adjust format as needed
 
-    await browser.close(); // Closing the browser instance
+    // Close the browser
+    await browser.close();
 
-    return pdfBuffer; // Returning the PDF buffer
-};
+    return pdfBuffer;
+}
 
-export default { convertHtmlToPdf }; // Exporting the convertHtmlToPdf function as default
+export default {generatePDF};

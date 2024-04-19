@@ -2,7 +2,6 @@
 
 import nodemailer from "nodemailer";
 import pdfUtils from "./pdfUtils.js";
-import fs from 'fs';
 
 const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetails) => {
 
@@ -18,8 +17,8 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         }
     });
 
-     // invoice details and content
-     const invoiceContent = 
+    // invoice details and content
+    const invoiceContent = 
      `
      <!DOCTYPE html>
 <html>
@@ -153,39 +152,44 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 </body>
 </html>
       `;
+    
+    //TODO:  Call the pdfUtil.convertHtmlToPdf function then bring tyhe mailOptions and transporter into it
+    
 
-    // Call the convertHtmlToPdf function
-    try {
-        const pdfBuffer = await pdfUtils.convertHtmlToPdf(invoiceContent); // Convert HTML to PDF and await the result
-        // Now you have the PDF buffer, you can use it as needed (e.g., send it via email)
-
-         // email options pdf, images etc...
-        const mailOptions = {
-            from: email,
-            to: recipientEmail,
-            subject: 'Your Invoice',
-            attachments: [
-                {
-                    filename: 'invoice.pdf',
-                    content: pdfBuffer, // Use req.file.buffer directly
-                    contentType: 'application/pdf',
-                }
-            ]
-        }
-
-        // server lets us know when an email was sent or not
-        transporter.sendMail(mailOptions)
-        .then(info => {
-            console.log('Email sent:', info.response);
-        })
-        .catch((error) => {
-            console.error('Error sending email:', error);
-        });
+    (async () => {
+        try {
+            // Generate PDF using Puppeteer with configuration options
+            const pdfBuffer = await pdfUtils.generatePDF(invoiceContent);
+    
+            // Now you have the PDF buffer, you can send it via email or save it to disk
+            // For example, you can send it via nodemailer
+            const mailOptions = {
+                from: email,
+                to: recipientEmail,
+                subject: 'Your Invoice',
+                attachments: [
+                    {
+                        filename: 'invoice.pdf',
+                        content: pdfBuffer, // Convert PDF buffer to base64 string
+                        contentType: 'application/pdf',
+                    }
+                ]
+            };
         
-    } catch (error) {
-        console.error('Error converting HTML to PDF:', error);
-    }  
-      
+            // server lets us know when an email was sent or not
+            transporter.sendMail(mailOptions)
+                .then(info => {
+                    console.log('Email sent:', info.response);
+                })
+                .catch((error) => {
+                    console.error('Error sending email:', error);
+                });
+    
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        }
+    })();
+        
     
 
     /*
