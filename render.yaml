@@ -1,9 +1,15 @@
+# Configuration for the Render service "povhaum-studio-app".
+# This setup defines proxy settings to manage network traffic for the service.
+
 services:
   - name: povhaum-studio-app
     environment:
+      # Set the HTTP proxy to pov-haum-studio.onrender.com.
       - key: HTTP_PROXY
         value: http://pov-haum-studio.onrender.com
+      # Set the HTTPS proxy to pov-haum-studio.onrender.com.
       - key: HTTPS_PROXY
         value: https://pov-haum-studio.onrender.com
+      # Exclude localhost and 127.0.0.1 from the proxy to avoid routing them through external servers.
       - key: NO_PROXY
         value: localhost,127.0.0.1
