@@ -25,3 +25,12 @@ yarn.lock
 # OS-generated files
 .DS_Store
 Thumbs.db
+
+# Exclude Puppeteer cache
+.cache/puppeteer/
+
+# Exclude compiled binaries and executables
+*.exe
+*.dll
+*.so
+*.dylib

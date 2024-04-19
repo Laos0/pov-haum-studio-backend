@@ -1,0 +1,9 @@
+services:
+  - name: povhaum-studio-app
+    environment:
+      - key: HTTP_PROXY
+        value: http://pov-haum-studio.onrender.com
+      - key: HTTPS_PROXY
+        value: https://pov-haum-studio.onrender.com
+      - key: NO_PROXY
+        value: localhost,127.0.0.1
