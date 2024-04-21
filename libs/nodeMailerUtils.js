@@ -2,6 +2,7 @@
 
 import nodemailer from "nodemailer";
 import pdfUtils from "./pdfUtils.js";
+import { promises as fs } from 'fs';
 
 const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetails) => {
 
@@ -16,6 +17,9 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
             pass: appPassword // this has to be an App password generated from gmail or hotmail .etc, not your actual gmail's password
         }
     });
+
+
+    //TODO: Bring in PovHuam logo into pdf 
 
     // invoice details and content
     const invoiceContent = 
@@ -79,7 +83,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     /* Price styles */
     .price {
         float: right;
-        color: #007bff;
+        color: #808080;
     }
 
     /* Solid line styles */
@@ -111,9 +115,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="product-details">
         <div class="section-title">Product:</div>
         <div>
-            <div>Type: ${orderDetails.topType}</div>
-            <div>Size: ${orderDetails.topSize}</div>
-            <div>Qty: ${orderDetails.topQty}</div>
+            <div>Qty: ${orderDetails.totalQty}</div>
             <div>Due Date: ${orderDetails.deliveryDateRequest}</div>
         </div>
     </div>
@@ -123,10 +125,6 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="total-details">
         <div class="section-title">Grand Total:</div>
         <div>
-            <div>Qty Cost: <span class="price">$${orderDetails.qtyCost}</span></div>
-            <div>Print Area Cost: <span class="price">$${orderDetails.printAreaCost}</span></div>
-            <div>Subtotal: <span class="price">$${orderDetails.subtotal}</span></div>
-            <div>Tax: <span class="price">$${orderDetails.tax}</span></div>
             <div>Total: <span class="price">$${orderDetails.icost.total}</span></div>
         </div>
     </div>
@@ -166,10 +164,10 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
             const mailOptions = {
                 from: email,
                 to: recipientEmail,
-                subject: 'Your Invoice',
+                subject: 'Pov Haum Studio Invoice: ' + orderDetails.orderId,
                 attachments: [
                     {
-                        filename: 'invoice.pdf',
+                        filename: 'pov-haum-studio-invoice.pdf',
                         content: pdfBuffer, // Convert PDF buffer to base64 string
                         contentType: 'application/pdf',
                     }
