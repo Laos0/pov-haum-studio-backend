@@ -2,7 +2,7 @@
 
 import nodemailer from "nodemailer";
 import pdfUtils from "./pdfUtils.js";
-import { promises as fs } from 'fs';
+import {JSDOM} from "jsdom";
 
 const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetails) => {
 
@@ -104,7 +104,6 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 <div class="invoice-container">
     <div class="client-info">
         <div class="section-title">Your Contact Info:</div>
-        <div>${orderDetails.businessName}</div>
         <div>${orderDetails.firstName} ${orderDetails.lastName}</div>
         <div>${orderDetails.email}</div>
         <div>${orderDetails.phone}</div>
@@ -115,7 +114,8 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="product-details">
         <div class="section-title">Product:</div>
         <div>
-            <div>Qty: ${orderDetails.totalQty}</div>
+            <div class='sizeQtyContainer'></div>
+            <div>Total Qtys: ${orderDetails.totalQty}</div>
             <div>Due Date: ${orderDetails.deliveryDateRequest}</div>
         </div>
     </div>
@@ -151,13 +151,30 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 </html>
       `;
     
-    //TODO:  Call the pdfUtil.convertHtmlToPdf function then bring tyhe mailOptions and transporter into it
-    
+    // Parse HTML content using JSDOM
+const dom = new JSDOM(invoiceContent);
+const htmlDoc = dom.window.document;
+
+// Finding the container where you want to display the size quantities in the HTML (invoiceContent)
+const sizeQtyContainer = htmlDoc.querySelector('.sizeQtyContainer');
+
+// Iterate over each ISizeQty object in the iSizeQty array
+orderDetails.iSizeQty.forEach(sizeQty => {
+    // create a div for each of the sizeQty
+    const sizeQtyDiv = htmlDoc.createElement('div');
+    sizeQtyDiv.textContent = `Size: ${sizeQty.sizeType}, Qty: ${sizeQty.qty}`;
+
+    // append the div element to the container
+    sizeQtyContainer.appendChild(sizeQtyDiv);
+});
+
+// Convert the modified DOM object back to an HTML string
+const modifiedInvoiceContent = htmlDoc.documentElement.outerHTML;
 
     (async () => {
         try {
             // Generate PDF using Puppeteer with configuration options
-            const pdfBuffer = await pdfUtils.generatePDF(invoiceContent);
+            const pdfBuffer = await pdfUtils.generatePDF(modifiedInvoiceContent);
     
             // Now you have the PDF buffer, you can send it via email or save it to disk
             // For example, you can send it via nodemailer
@@ -202,9 +219,6 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 
     
 }
-
-
-
 
 
 export default {sendInvoiceToEmail};

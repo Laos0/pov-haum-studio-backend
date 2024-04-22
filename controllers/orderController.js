@@ -19,7 +19,7 @@ const order = async (req, res) => {
 
         const values = [id, order_json, email];
 
-        console.log(email);
+        console.log(order_json.iSizeQty);
 
         // inserting data into the order_detail table in database
         //const result = await pool.query(queries.orderPostQueries.ADD_NEW_ORDER, values);
