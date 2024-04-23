@@ -94,9 +94,11 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         <div class="client-address">
             <div class="section-title">Address:</div>
             <address>
-                ${orderDetails.iAddress.street}<br>
-                ${orderDetails.iAddress.apt ? `Apt ${orderDetails.iAddress.apt}<br>` : ''}
+                ${orderDetails.iAddress.street}, ${orderDetails.iAddress.apt ? `Apt ${orderDetails.iAddress.apt}<br>` : ''}
                 ${!orderDetails.iAddress.apt ? `${orderDetails.iAddress.city}, ${orderDetails.iAddress.state} ${orderDetails.iAddress.zip}<br>` : ''}
+                <!-- Display city, state, and zip code regardless of apt existence -->
+                ${orderDetails.iAddress.city ? `${orderDetails.iAddress.city},` : ''} 
+                ${orderDetails.iAddress.state ? `${orderDetails.iAddress.state} ${orderDetails.iAddress.zip}<br>` : ''}
             </address>
         </div>
     </div>
@@ -106,8 +108,10 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="product-details">
         <div class="section-title">Products:</div>
         <div>
+            <div>Shirt Color: ${orderDetails.topBaseColorName}</div>
             <div class='sizeQtyContainer'></div>
             <div>Total Qtys: ${orderDetails.totalQty}</div>
+            <div class='areaColorsContainer'></div>
             <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
         </div>
     </div>
@@ -148,6 +152,7 @@ const htmlDoc = dom.window.document;
 
 // Finding the container where you want to display the size quantities in the HTML (invoiceContent)
 const sizeQtyContainer = htmlDoc.querySelector('.sizeQtyContainer');
+const areaColorsContainer = htmlDoc.querySelector('.areaColorsContainer');
 
 // Iterate over each ISizeQty object in the iSizeQty array
 orderDetails.iSizeQty.forEach(sizeQty => {
@@ -157,6 +162,15 @@ orderDetails.iSizeQty.forEach(sizeQty => {
 
     // append the div element to the container
     sizeQtyContainer.appendChild(sizeQtyDiv);
+});
+
+orderDetails.areaColors.forEach(areaColor => {
+    // create a div for each of the sizeQty
+    const areaColorDiv = htmlDoc.createElement('div');
+    areaColorDiv.textContent = `Print Area: ${areaColor.printAreaType}, ${areaColor.colorAppQty.colorAppType}, ${areaColor.colorAppQty.qty}`;
+
+    // append the div element to the container
+    areaColorsContainer.appendChild(areaColorDiv);
 });
 
 // Convert the modified DOM object back to an HTML string
