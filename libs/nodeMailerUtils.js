@@ -120,7 +120,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="delivery-details">
         <div class="section-title">Delivery:</div>
         <div>Rush: ${orderDetails.rushOrder ? 'yes' : 'no'}</div>
-        <div>Deliver: ${orderDetails.deliveryType}</div>
+        <div>Delivery Type: ${orderDetails.deliveryType}</div>
         <div>Shipping: ${orderDetails.shippingType}</div>
         <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
     </div>
@@ -131,9 +131,19 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="total-details">
         <div class="section-title">Pricing:</div>
         <div>
-            <div>Total: <span class="price">$${orderDetails.icost.total}</span></div>
+            <strike><div>Total Unit Cost: ${orderDetails.totalQty} x $${orderDetails.icost.avgUnitCost.toFixed(2)} = $${orderDetails.icost.itemCostTotal.toFixed(2)}</div></strike>
+            ${orderDetails.icost.bulkDiscountPercent !== 0 ? `<div>Volume Discount and Savings: ${Math.round(orderDetails.icost.bulkDiscountPercent * 100)}%, $${orderDetails.icost.bulkDiscountSavings.toFixed(2)}</div>` : ''}
+            <div>Total Unit Cost: ${orderDetails.totalQty} x $${orderDetails.icost.avgUnitCostWithBulkDiscount.toFixed(2)} = $${orderDetails.icost.itemCostTotalWithBulkDiscount.toFixed(2)}</div>
+            ${orderDetails.icost.totalPromoDiscountsPercent !== 0 ? `<div>Promo Discounts and Savings: ${Math.round(orderDetails.icost.totalPromoDiscountsPercent * 100)}%, $${orderDetails.icost.itemCostTotalWithPromoDiscountSavings.toFixed(2)}</div>` : ''}
+            ${orderDetails.icost.spotColorSetupFee !== 0 ? `<div> Spot Color Setup Fee: $${orderDetails.icost.spotColorSetupFee.toFixed(2)} </div>` : ''}
+            ${orderDetails.icost.rushOrderCost !== 0 ? `<div> Rush Order Fee: $${orderDetails.icost.rushOrderCost.toFixed(2)} </div>` : ''}
+            <div>Subtotal: $${orderDetails.icost.subTotal.toFixed(2)}</div>
+            <div>Tax: $${orderDetails.icost.totalTax.toFixed(2)}</div>
+            <div>Grand Total: <span class="price">$${orderDetails.icost.total.toFixed(2)}</span></div>
         </div>
     </div>
+
+    <div class="solid-line"></div>
 
     <div class="payment-info">
         <div class="section-title">Accepted Payments:</div>
@@ -168,7 +178,7 @@ const areaColorsContainer = htmlDoc.querySelector('.areaColorsContainer');
 orderDetails.iSizeQty.forEach(sizeQty => {
     // create a div for each of the sizeQty
     const sizeQtyDiv = htmlDoc.createElement('div');
-    sizeQtyDiv.textContent = `Size: ${sizeQty.sizeType}, Qty: ${sizeQty.qty}`;
+    sizeQtyDiv.textContent = `Size: ${sizeQty.sizeType}, ${sizeQty.qty}`;
 
     // append the div element to the container
     sizeQtyContainer.appendChild(sizeQtyDiv);
