@@ -112,9 +112,19 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
             <div class='sizeQtyContainer'></div>
             <div>Total Qtys: ${orderDetails.totalQty}</div>
             <div class='areaColorsContainer'></div>
-            <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
         </div>
     </div>
+
+    <div class="solid-line"></div>
+
+    <div class="delivery-details">
+        <div class="section-title">Delivery:</div>
+        <div>Rush: ${orderDetails.rushOrder ? 'yes' : 'no'}</div>
+        <div>Deliver: ${orderDetails.deliveryType}</div>
+        <div>Shipping: ${orderDetails.shippingType}</div>
+        <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
+    </div>
+
 
     <div class="solid-line"></div>
 
