@@ -48,42 +48,24 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Section title styles */
-    .section-title {
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
     /* Client info styles */
     .client-info {
         margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
     }
 
-    /* Product details styles */
-    .product-details {
-        margin-bottom: 20px;
+    /* Contact info styles */
+    .contact-info {
+        flex-grow: 1;
+        margin-right: 20px;
     }
 
-    /* Total details styles */
-    .total-details {
-        margin-bottom: 20px;
-    }
-
-    /* Payment info styles */
-    .payment-info {
-        margin-bottom: 20px;
-    }
-
-    /* Additional info styles */
-    .additional-info {
-        margin-bottom: 20px;
-    }
-
-    /* Price styles */
-    .price {
-        float: right;
-        color: #808080;
+    /* Client address styles */
+    .client-address {
+        flex-grow: 1;
+        text-align: right;
     }
 
     /* Solid line styles */
@@ -92,38 +74,48 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         margin: 20px 0;
     }
 
-    /* Footer styles */
-    .footer {
-        margin-top: 20px;
-        text-align: center;
-        color: #888;
+    /* Section title styles */
+    .section-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
     }
 </style>
 </head>
 <body>
 <div class="invoice-container">
-    <div class="client-info">
-        <div class="section-title">Your Contact Info:</div>
-        <div>${orderDetails.firstName} ${orderDetails.lastName}</div>
-        <div>${orderDetails.email}</div>
-        <div>${orderDetails.phone}</div>
+   <div class="client-info">
+        <div class="contact-info">
+            <div class="section-title">Your Contact Info:</div>
+            <div>${orderDetails.firstName} ${orderDetails.lastName}</div>
+            <div>${orderDetails.email}</div>
+            <div>${orderDetails.phone}</div>
+        </div>
+        <div class="client-address">
+            <div class="section-title">Address:</div>
+            <address>
+                ${orderDetails.iAddress.street}<br>
+                ${orderDetails.iAddress.apt ? `Apt ${orderDetails.iAddress.apt}<br>` : ''}
+                ${!orderDetails.iAddress.apt ? `${orderDetails.iAddress.city}, ${orderDetails.iAddress.state} ${orderDetails.iAddress.zip}<br>` : ''}
+            </address>
+        </div>
     </div>
-
+    
     <div class="solid-line"></div>
 
     <div class="product-details">
-        <div class="section-title">Product:</div>
+        <div class="section-title">Products:</div>
         <div>
             <div class='sizeQtyContainer'></div>
             <div>Total Qtys: ${orderDetails.totalQty}</div>
-            <div>Due Date: ${orderDetails.deliveryDateRequest}</div>
+            <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
         </div>
     </div>
 
     <div class="solid-line"></div>
 
     <div class="total-details">
-        <div class="section-title">Grand Total:</div>
+        <div class="section-title">Pricing:</div>
         <div>
             <div>Total: <span class="price">$${orderDetails.icost.total}</span></div>
         </div>
@@ -148,8 +140,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     </div>
 </div>
 </body>
-</html>
-      `;
+</html>`;
     
     // Parse HTML content using JSDOM
 const dom = new JSDOM(invoiceContent);
