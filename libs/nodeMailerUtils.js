@@ -147,7 +147,8 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     /* Logo styles */
     .logo {
         display: block;
-        margin: 0 auto 20px;
+        margin: 0 auto;
+        width: 200px;
     }
 
     .total-details {
@@ -163,7 +164,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 <body>
 <div class="invoice-container">
     <div class="header">
-        <img src="../assets/logo.svg" alt="Your Company Logo" class="logo">
+        <img src="http://localhost:8080/assets/logo.svg" alt="Your Company Logo" class="logo">
         <h1 class="title">Pov Haum Studio Invoice</h1>
     </div>
     <div class="client-info">
@@ -259,8 +260,9 @@ orderDetails.iSizeQty.forEach(sizeQty => {
     sizeQtyContainer.appendChild(sizeQtyDiv);
 });
 
+// iterate over each areaColors object in the areaColors array
 orderDetails.areaColors.forEach(areaColor => {
-    // create a div for each of the sizeQty
+    // create a div for each of the areaColorDiv
     const areaColorDiv = htmlDoc.createElement('div');
     areaColorDiv.textContent = `Print Area: ${areaColor.printAreaType}, ${areaColor.colorAppQty.colorAppType}, ${areaColor.colorAppQty.qty}`;
 
@@ -274,7 +276,9 @@ const modifiedInvoiceContent = htmlDoc.documentElement.outerHTML;
     (async () => {
         try {
             // Generate PDF using Puppeteer with configuration options
-            const pdfBuffer = await pdfUtils.generatePDF(modifiedInvoiceContent);
+            const pdfBuffer = await pdfUtils.generatePDF(modifiedInvoiceContent, {
+                args: ['--allow-file-access-from-files']
+            });
     
             // Now you have the PDF buffer, you can send it via email or save it to disk
             // For example, you can send it via nodemailer
