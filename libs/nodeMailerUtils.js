@@ -27,15 +27,15 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
      <!DOCTYPE html>
 <html>
 <head>
-<title>Invoice</title>
+<title>Pov Haum Studio Invoice</title>
 <style>
     /* Global styles */
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
         margin: 0;
         padding: 0;
-        background-color: #f7f7f7;
+        background-color: #f2f2f2;
     }
 
     /* Container styles */
@@ -48,12 +48,29 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
+    /* Header styles */
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+    }
+
+    /* Title styles */
+    .title {
+        margin: 0;
+        font-size: 24px;
+    }
+
     /* Client info styles */
     .client-info {
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        padding: 20px;
+        border-bottom: 1px solid #ccc;
     }
 
     /* Contact info styles */
@@ -68,31 +85,94 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         text-align: right;
     }
 
-    /* Solid line styles */
-    .solid-line {
-        border-top: 1px solid #ccc;
-        margin: 20px 0;
-    }
-
     /* Section title styles */
     .section-title {
         font-weight: bold;
         margin-bottom: 10px;
         color: #333;
     }
+
+    /* Product and Delivery section wrapper */
+    .product-delivery-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    /* Product details styles */
+    .product-details,
+    .delivery-details,
+    .total-details,
+    .payment-info,
+    .additional-info {
+        width: calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+
+    /* Footer styles */
+    .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        border-radius: 0 0 10px 10px;
+        text-align: center;
+    }
+
+    /* Price styles */
+    .price {
+        font-weight: bold;
+        color: #008cba;
+    }
+
+    /* Accepted payments styles */
+    .payment-info ul {
+        list-style-type: disc; /* Add bullets */
+        padding: 0;
+        margin-left: 20px; /* Align with the section title */
+        font-size: 14px;
+    }
+
+    /* Additional information styles */
+  
+    .additional-info {
+        display: flex;
+        flex-direction: column;
+        width: 100%; /* Ensure the container takes up the full width */
+    }
+    
+    .additional-info p {
+        margin: 0; /* Remove default margin */
+    }
+
+    /* Logo styles */
+    .logo {
+        display: block;
+        margin: 0 auto 20px;
+    }
+
+    .total-details {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .total-details .pricing-details {
+        width: 100%;
+    }
 </style>
 </head>
 <body>
 <div class="invoice-container">
-   <div class="client-info">
+    <div class="header">
+        <img src="../assets/logo.svg" alt="Your Company Logo" class="logo">
+        <h1 class="title">Pov Haum Studio Invoice</h1>
+    </div>
+    <div class="client-info">
         <div class="contact-info">
-            <div class="section-title">Your Contact Info:</div>
             <div>${orderDetails.firstName} ${orderDetails.lastName}</div>
             <div>${orderDetails.email}</div>
             <div>${orderDetails.phone}</div>
         </div>
         <div class="client-address">
-            <div class="section-title">Address:</div>
             <address>
                 ${orderDetails.iAddress.street}, ${orderDetails.iAddress.apt ? `Apt ${orderDetails.iAddress.apt}<br>` : ''}
                 ${!orderDetails.iAddress.apt ? `${orderDetails.iAddress.city}, ${orderDetails.iAddress.state} ${orderDetails.iAddress.zip}<br>` : ''}
@@ -103,35 +183,30 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         </div>
     </div>
     
-    <div class="solid-line"></div>
+    <div class="product-delivery-wrapper">
+        <div class="product-details">
+            <div class="section-title">Products:</div>
+            <div>
+                <div>Shirt Color: ${orderDetails.topBaseColorName}</div>
+                <div class='sizeQtyContainer'></div>
+                <div>Total Qtys: ${orderDetails.totalQty}</div>
+                <div class='areaColorsContainer'></div>
+            </div>
+        </div>
 
-    <div class="product-details">
-        <div class="section-title">Products:</div>
-        <div>
-            <div>Shirt Color: ${orderDetails.topBaseColorName}</div>
-            <div class='sizeQtyContainer'></div>
-            <div>Total Qtys: ${orderDetails.totalQty}</div>
-            <div class='areaColorsContainer'></div>
+        <div class="delivery-details">
+            <div class="section-title">Delivery:</div>
+            <div>Rush: ${orderDetails.rushOrder ? 'yes' : 'no'}</div>
+            <div>Delivery Type: ${orderDetails.deliveryType}</div>
+            <div>Shipping: ${orderDetails.shippingType}</div>
+            <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
         </div>
     </div>
-
-    <div class="solid-line"></div>
-
-    <div class="delivery-details">
-        <div class="section-title">Delivery:</div>
-        <div>Rush: ${orderDetails.rushOrder ? 'yes' : 'no'}</div>
-        <div>Delivery Type: ${orderDetails.deliveryType}</div>
-        <div>Shipping: ${orderDetails.shippingType}</div>
-        <div>Delivery Requested Date: ${orderDetails.deliveryDateRequest}</div>
-    </div>
-
-
-    <div class="solid-line"></div>
-
+    
     <div class="total-details">
         <div class="section-title">Pricing:</div>
-        <div>
-            <strike><div>Total Unit Cost: ${orderDetails.totalQty} x $${orderDetails.icost.avgUnitCost.toFixed(2)} = $${orderDetails.icost.itemCostTotal.toFixed(2)}</div></strike>
+        <div class="pricing-details">
+            <strike>Total Unit Cost: ${orderDetails.totalQty} x $${orderDetails.icost.avgUnitCost.toFixed(2)} = $${orderDetails.icost.itemCostTotal.toFixed(2)}</strike>
             ${orderDetails.icost.bulkDiscountPercent !== 0 ? `<div>Volume Discount and Savings: ${Math.round(orderDetails.icost.bulkDiscountPercent * 100)}%, $${orderDetails.icost.bulkDiscountSavings.toFixed(2)}</div>` : ''}
             <div>Total Unit Cost: ${orderDetails.totalQty} x $${orderDetails.icost.avgUnitCostWithBulkDiscount.toFixed(2)} = $${orderDetails.icost.itemCostTotalWithBulkDiscount.toFixed(2)}</div>
             ${orderDetails.icost.totalPromoDiscountsPercent !== 0 ? `<div>Promo Discounts and Savings: ${Math.round(orderDetails.icost.totalPromoDiscountsPercent * 100)}%, $${orderDetails.icost.itemCostTotalWithPromoDiscountSavings.toFixed(2)}</div>` : ''}
@@ -142,8 +217,6 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
             <div>Grand Total: <span class="price">$${orderDetails.icost.total.toFixed(2)}</span></div>
         </div>
     </div>
-
-    <div class="solid-line"></div>
 
     <div class="payment-info">
         <div class="section-title">Accepted Payments:</div>
@@ -156,7 +229,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 
     <div class="additional-info">
         <div class="section-title">Additional Information:</div>
-        <div>Depending on the amount ordered, 50% or 100% of the total will be required before the order is processed at the warehouse.</div>
+        <p>Depending on the amount ordered, 50% or 100% of the total will be required before the order is processed at the warehouse.</p>
     </div>
 
     <div class="footer">
@@ -164,7 +237,9 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     </div>
 </div>
 </body>
-</html>`;
+</html>
+
+`;
     
     // Parse HTML content using JSDOM
 const dom = new JSDOM(invoiceContent);
