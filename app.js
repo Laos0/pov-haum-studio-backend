@@ -22,7 +22,6 @@ app.use(cors());
 // enable preflights for all routes
 // app.options('*', cors(corsOptions));
 
-
 // a middleware: this will allow us to send json from frontend to here
 // without express.json(), our req.body will be {} 
 // app.use(express.json()) also tells Express to automatically parse JSON request bodies for you

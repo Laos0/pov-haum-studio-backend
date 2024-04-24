@@ -20,10 +20,8 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
         }
     });
 
+    /****** CONVERT SVG to base64 */
 
-    //TODO: Bring in PovHuam logo into pdf 
-    // Read the SVG file
-    console.log('Current working directory:', process.cwd());
     // Get the directory name of the current module file
     const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
@@ -35,6 +33,8 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 
     // Base64 encode the Buffer
     const base64EncodedSVG = svgBuffer.toString('base64');
+
+    //******* End for converting svg to base64 */
 
     // invoice details and content
     const invoiceContent = 
