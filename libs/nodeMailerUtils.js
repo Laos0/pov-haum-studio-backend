@@ -3,6 +3,8 @@
 import nodemailer from "nodemailer";
 import pdfUtils from "./pdfUtils.js";
 import {JSDOM} from "jsdom";
+import fs from "fs";
+import path from "path";
 
 const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetails) => {
 
@@ -20,6 +22,19 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 
 
     //TODO: Bring in PovHuam logo into pdf 
+    // Read the SVG file
+    console.log('Current working directory:', process.cwd());
+    // Get the directory name of the current module file
+    const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+    // Read the SVG file using an absolute path
+    const svgContent = fs.readFileSync(path.join(__dirname, '../assets/logo.svg'), 'utf-8');
+
+    // Convert the SVG content to a Buffer
+    const svgBuffer = Buffer.from(svgContent, 'utf-8');
+
+    // Base64 encode the Buffer
+    const base64EncodedSVG = svgBuffer.toString('base64');
 
     // invoice details and content
     const invoiceContent = 
@@ -164,7 +179,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
 <body>
 <div class="invoice-container">
     <div class="header">
-        <img src="http://localhost:8080/assets/logo.svg" alt="Your Company Logo" class="logo">
+        <img src="data:image/svg+xml;base64, ${base64EncodedSVG}" class="logo">
         <h1 class="title">Pov Haum Studio Invoice</h1>
     </div>
     <div class="client-info">

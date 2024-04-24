@@ -22,9 +22,6 @@ app.use(cors());
 // enable preflights for all routes
 // app.options('*', cors(corsOptions));
 
-// Serve static files from the 'assets' directory
-app.use('/assets', express.static('assets'));
-
 
 // a middleware: this will allow us to send json from frontend to here
 // without express.json(), our req.body will be {} 
