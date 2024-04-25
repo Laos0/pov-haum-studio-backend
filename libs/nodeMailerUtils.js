@@ -237,7 +237,7 @@ const sendInvoiceToEmail = async (email, appPassword, recipientEmail, orderDetai
     <div class="payment-info">
         <div class="section-title">Accepted Payments:</div>
         <ul>
-            <li>Paypal</li>
+            <li>PayPal | Zelle | Venmo | Meta Pay</li>
             <li>All major credit cards</li>
             <li>Cash</li>
         </ul>
