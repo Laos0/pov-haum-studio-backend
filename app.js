@@ -6,6 +6,7 @@ import couponRouter from './routes/couponRouter.js';
 import pingRouter from './routes/pingRouter.js';
 import { apiPaths } from './apiVersion/apiPaths.js';
 import cors from 'cors';
+import fetch from 'node-fetch';
 
 const app = express();
 
@@ -50,3 +51,23 @@ app.set('host', host);
 app.listen(port, host, () => {
     console.log(`Server is running on ${host}:${port}`);
 });
+
+// Function to ping the server
+const pingServer = async () => {
+    try {
+
+        // testing locally: const response = await fetch('http://localhost:4200/api/v1/ping/active');
+        const response = await fetch('https://pov-haum-studio.onrender.com/api/v1/ping/active'); // Adjust the URL accordingly
+        if (response.ok) {
+            console.log('Server pinged successfully');
+        } else {
+            console.error('Failed to ping server');
+        }
+    } catch (error) {
+        console.error('Error pinging server:', error);
+    }
+};
+
+// Ping the server every 15 minutes (adjust interval as needed)
+const pingInterval = 15 * 60 * 1000; // 15 minutes in milliseconds
+setInterval(pingServer, pingInterval);

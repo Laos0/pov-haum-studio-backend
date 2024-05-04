@@ -1,12 +1,11 @@
-
-/** Purpose of this file is to control the logics when server gets pinged */
+/** Purpose of this file is to control the logic when the server gets pinged */
 
 const ping = async (req, res) => {
     try {
-        console.log('user router testing');
-        res.status(200).json({message: 'Pinging server sucessful.'});
-    }catch(error) {
-        res.status(500).json({message: 'Failed to ping server', error: error.message});
+        console.log('Server pinged successfully');
+        res.status(200).json({ message: 'Pinging server successful.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to ping server', error: error.message });
     }
 };
 

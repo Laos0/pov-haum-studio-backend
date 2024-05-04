@@ -2,14 +2,13 @@ import express from 'express';
 import pingController from '../controllers/pingController.js';
 
 /**
- * This file allows us to access the domain.com/api/v1/ping/* path
+ * This file defines routes for pinging the server.
  */
 
-// creating a new router instance
+// Create a new router instance
 const router = express.Router();
 
-//defining get routes
-router.get('/', pingController.ping); 
-
+// Define the GET route for pinging the server
+router.get('/active', pingController.ping);
 
 export default router;
