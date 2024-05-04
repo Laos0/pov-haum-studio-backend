@@ -52,6 +52,7 @@ app.listen(port, host, () => {
     console.log(`Server is running on ${host}:${port}`);
 });
 
+/* ENABLE THIS TO PING SERVER FROM SERVER SIDE
 // Function to ping the server
 const pingServer = async () => {
     try {
@@ -71,3 +72,5 @@ const pingServer = async () => {
 // Ping the server every 15 minutes (adjust interval as needed)
 const pingInterval = 15 * 60 * 1000; // 15 minutes in milliseconds
 setInterval(pingServer, pingInterval);
+
+END OF SERVER PINGING */
