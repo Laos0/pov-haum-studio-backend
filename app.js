@@ -1,4 +1,5 @@
-import express, { Router } from 'express';
+import express, { Router} from 'express';
+import rateLimit from 'express-rate-limit';
 import  userRouter  from './routes/userRouter.js';
 import loginRouter from './routes/loginRouter.js';
 import orderRouter from './routes/orderRouter.js';
@@ -17,6 +18,16 @@ const allowedOrigins = ['https://pov-haum-studio-ng.onrender.com', 'http://local
 const host = '0.0.0.0'; // This binds the server to all network interfaces
 
 const port = process.env.PORT || 8080;
+
+// Define a rate limit middleware
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 15 minutes for actual deployment, right now it is 1 min
+    max: 30, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again later.'
+});
+
+// Apply the rate limiter middleware to all requests
+app.use(limiter);
   
 app.use(cors());
 
